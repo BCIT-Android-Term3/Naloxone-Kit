@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MapImplementatino.iml" filepath="$PROJECT_DIR$/MapImplementatino.iml" />
+      <module fileurl="file://D:\AndroidWorkspace\Naloxone-Kit\MapImplementatino.iml" filepath="D:\AndroidWorkspace\Naloxone-Kit\MapImplementatino.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Naloxone-Kit.iml" filepath="$PROJECT_DIR$/Naloxone-Kit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\AndroidWorkspace\Naloxone-Kit\app\app.iml" filepath="D:\AndroidWorkspace\Naloxone-Kit\app\app.iml" />
     </modules>
   </component>
 </project>
