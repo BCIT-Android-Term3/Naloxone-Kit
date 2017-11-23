@@ -1,6 +1,9 @@
 package project.MapImplementation;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -20,9 +23,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import static java.lang.Double.parseDouble;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+    //with training
+    public static final String LONDON_DRUGS_ADDRESS = "New Westminster London Drugs 100–555 6th Street";
+    public static final String SAFEWAY_MCBRIDE_ADDRESS = "New Westminster Safeway 800 McBride Boulevard";
+    public static final String SAFEWAY_CARNARVON_ADDRESS = "New Westminster Safeway 220-800 Carnarvon Street";
+
+    //Without training
+    public static final String PHARMASAVE_ADDRESS = "New Westminster Pharmasave 130-1005 Columbia Street";
+    public static final String SAVEONFOODS_ADDRESS = "New Westminister Save-On-Foods 270 E Columbia Street";
+
+
 
     private GoogleMap mMap;
     Button btnShowCoord;
@@ -89,7 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .getJSONObject("location").get("lng").toString());
 
                 txtCoord.setText(String.format("Coordinates : %s / %s ",lat,lng));
-               // System.out.println("OVER HERE MY MAN  " + parseDouble(lat) + "   " + parseDouble(lng));
+                // System.out.println("OVER HERE MY MAN  " + parseDouble(lat) + "   " + parseDouble(lng));
 
                 onMapReady(mMap);
                 if(dialog.isShowing())
@@ -100,7 +115,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
-
 
     /**
      * Manipulates the map once available.
@@ -118,6 +132,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         LatLng closest = new LatLng(lat, lng);
         mMap.addMarker(new MarkerOptions().position(closest).title("Home"));
+        mMap.addMarker(new MarkerOptions().position(getLocationFromAddress(this, LONDON_DRUGS_ADDRESS)).title("1"));
+        mMap.addMarker(new MarkerOptions().position(getLocationFromAddress(this, SAFEWAY_MCBRIDE_ADDRESS)).title("1"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(closest, 13));
+
+    }
+
+    public LatLng getLocationFromAddress(Context context, String strAddress)
+    {
+        Geocoder coder= new Geocoder(context);
+        LatLng p1 = null;
+        List<Address> address;
+        try
+        {
+            address = coder.getFromLocationName(strAddress, 2);
+            if(address==null)
+            {
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return p1;
     }
 }
